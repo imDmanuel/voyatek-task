@@ -21,7 +21,7 @@ import {
 } from "./ui/table";
 import { User, UserDialogType, UserRole } from "@/lib/types";
 import { PiCaretUpDownBold } from "react-icons/pi";
-import { cn, removeTrailingSlashes, usersApi } from "@/lib/utils";
+import { cn, removeTrailingSlashes } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { PiMagnifyingGlass, PiPlusCircleBold } from "react-icons/pi";
 import { Input } from "./ui/input";
@@ -38,6 +38,7 @@ import { UserFormSchema, userFormSchema } from "@/lib/schemas";
 import UserFormDialog from "./user-form-dialog";
 import { toast } from "sonner";
 import DeleteUserDialog from "./delete-user-dialog";
+import { useUsersApi } from "@/lib/useUsersApi";
 
 const defaultPreloadValues: UserFormSchema = {
   email: "",
@@ -151,6 +152,7 @@ export default function UsersTable() {
   const [filterBy, setFilterBy] = useState<"fullName" | "email" | "role">(
     "fullName"
   );
+  const { usersApi } = useUsersApi();
   const baseUrl = removeTrailingSlashes(
     process.env.NEXT_PUBLIC_API_BASE_URL || ""
   );
