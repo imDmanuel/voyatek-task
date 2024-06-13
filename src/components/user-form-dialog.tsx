@@ -181,7 +181,7 @@ export default function UserFormDialog({
                           <Input
                             type={showPassword ? "text" : "password"}
                             className="text-neutral-800 placeholder:text-[#676E7E] bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                            placeholder="New User's Email Address"
+                            placeholder="Create a password for new user"
                             {...field}
                           />
                           <button

@@ -213,7 +213,7 @@ export default function UsersTable() {
           // if the id to patch is not present, throw an error
           throw Error();
         }
-        const response = await axios.patch<User>(
+        const response = await axios.put<User>(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/${id}`,
           values
         );
