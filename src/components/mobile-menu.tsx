@@ -14,7 +14,7 @@ export default function MobileMenu() {
         onClick={() => setSidebarOpen((v) => !v)}
         className={cn(
           "sm:hidden",
-          "inline-block absolute right-0 bg-primary-600 text-white p-4 z-10"
+          "inline-block absolute right-0 bg-primary-600 text-white p-4 z-[9]"
         )}
       >
         <PiCaretDoubleRight
