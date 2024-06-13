@@ -21,7 +21,7 @@ import {
 } from "./ui/table";
 import { User, UserDialogType, UserRole } from "@/lib/types";
 import { PiCaretUpDownBold } from "react-icons/pi";
-import { cn } from "@/lib/utils";
+import { cn, removeTrailingSlashes } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { PiMagnifyingGlass, PiPlusCircleBold } from "react-icons/pi";
 import { Input } from "./ui/input";
@@ -152,6 +152,9 @@ export default function UsersTable() {
   const [filterBy, setFilterBy] = useState<"fullName" | "email" | "role">(
     "fullName"
   );
+  const baseUrl = removeTrailingSlashes(
+    process.env.NEXT_PUBLIC_API_BASE_URL || ""
+  );
   const table = useReactTable({
     data: users,
     columns,
@@ -170,9 +173,7 @@ export default function UsersTable() {
     async function fetchUsers() {
       setTableLoading(true);
       try {
-        const response = await axios.get<User[]>(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
-        );
+        const response = await axios.get<User[]>(`${baseUrl}/`);
         if (Array.isArray(response.data)) {
           setUsers(response.data);
         }
@@ -183,7 +184,7 @@ export default function UsersTable() {
       }
     }
     fetchUsers();
-  }, []);
+  }, [baseUrl]);
 
   async function onSubmit(
     values: z.infer<typeof userFormSchema>,
@@ -193,10 +194,7 @@ export default function UsersTable() {
     if (type === "new") {
       const toastId = toast.loading("Submitting..");
       try {
-        const response = await axios.post<User>(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/`,
-          values
-        );
+        const response = await axios.post<User>(`${baseUrl}/`, values);
         setUsers((prevState) => [...prevState, response.data]);
         toast.success(`New user with name ${response.data.fullName} added`, {
           id: toastId,
@@ -213,10 +211,7 @@ export default function UsersTable() {
           // if the id to patch is not present, throw an error
           throw Error();
         }
-        const response = await axios.put<User>(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/${id}`,
-          values
-        );
+        const response = await axios.put<User>(`${baseUrl}/${id}`, values);
         setUsers((prevState) =>
           prevState.map((item) => {
             if (item.id === id) {
@@ -242,9 +237,7 @@ export default function UsersTable() {
   async function handleDelete(id: string) {
     const toastId = toast.loading("Deleting user..");
     try {
-      const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${id}`
-      );
+      const response = await axios.delete(`${baseUrl}/${id}`);
       setUsers((prevState) => {
         return prevState.filter((user) => user.id !== id);
       });
