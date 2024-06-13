@@ -45,7 +45,6 @@ export default function Navbar() {
       </button>
       {/* END ICONS MOBILE TOGGLE */}
 
-      {/* TODO: IMPLEMENT CHANGE COLOR ON HOVER */}
       {/* TODO: IMPLEMENT MOBILE VIEW OF AVATAR IMAGE */}
       <div
         className={cn(
@@ -55,19 +54,19 @@ export default function Navbar() {
         )}
       >
         {/* NAVBAR ACTION ICONS */}
-        <div className="flex flex-col items-center px-2 gap-y-1 hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
+        <div className="flex flex-col items-center px-2 gap-y-1 [&>*]:hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
           <PiBellSimple className="text-[#667185] size-6" />
           <div className="text-xs text-[#647995]">Notifications</div>
         </div>
-        <div className="flex flex-col items-center px-2 gap-y-1 hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
+        <div className="flex flex-col items-center px-2 gap-y-1 [&>*]:hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
           <PiWallet className="text-[#667185] size-6" />
           <div className="text-xs text-[#647995]">Wallet</div>
         </div>
-        <div className="flex flex-col items-center px-2 gap-y-1 hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
+        <div className="flex flex-col items-center px-2 gap-y-1 [&>*]:hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
           <PiQuestion className="text-[#667185] size-6" />
           <div className="text-xs text-[#647995]">Inquiries</div>
         </div>
-        <div className="flex flex-col items-center px-2 gap-y-1 hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
+        <div className="flex flex-col items-center px-2 gap-y-1 [&>*]:hover:text-primary-600 hover:cursor-pointer max-lg:flex-row max-lg:gap-x-2 max-lg:py-4 max-lg:border-b max-lg:mx-2 max-lg:hover:bg-primary-50 ">
           <PiGearDuotone className="text-[#667185] size-6" />
           <div className="text-xs text-[#647995]">Settings</div>
         </div>
