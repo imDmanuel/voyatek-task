@@ -185,7 +185,7 @@ export default function UsersTable() {
       }
     }
     fetchUsers();
-  }, [baseUrl]);
+  }, []); //Dont add the usersApi dependepcy
 
   async function onSubmit(
     values: z.infer<typeof userFormSchema>,
@@ -299,7 +299,7 @@ export default function UsersTable() {
                   <span>Filter</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-white z-[1]">
+              <DropdownMenuContent className="w-36 bg-white z-[1]">
                 <DropdownMenuCheckboxItem
                   onClick={() => {
                     table.resetColumnFilters();
