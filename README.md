@@ -2,7 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, create a .env file in the project and then copy the content of the .env.example file to the .env file
+
+Get a crud api from https://beeceptor.com/crud-api/[https://beeceptor.com/crud-api/] and set the NEXT_PUBLIC_API_BASE_URL environment variable to it
+
+Run the development server:
 
 ```bash
 npm run dev

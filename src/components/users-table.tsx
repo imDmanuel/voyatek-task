@@ -21,7 +21,7 @@ import {
 } from "./ui/table";
 import { User, UserDialogType, UserRole } from "@/lib/types";
 import { PiCaretUpDownBold } from "react-icons/pi";
-import { cn, removeTrailingSlashes } from "@/lib/utils";
+import { cn, removeTrailingSlashes, usersApi } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { PiMagnifyingGlass, PiPlusCircleBold } from "react-icons/pi";
 import { Input } from "./ui/input";
@@ -36,7 +36,6 @@ import z from "zod";
 import { Checkbox } from "./ui/checkbox";
 import { UserFormSchema, userFormSchema } from "@/lib/schemas";
 import UserFormDialog from "./user-form-dialog";
-import axios from "axios";
 import { toast } from "sonner";
 import DeleteUserDialog from "./delete-user-dialog";
 
@@ -173,7 +172,7 @@ export default function UsersTable() {
     async function fetchUsers() {
       setTableLoading(true);
       try {
-        const response = await axios.get<User[]>(`${baseUrl}/`);
+        const response = await usersApi.get<User[]>(`/`);
         if (Array.isArray(response.data)) {
           setUsers(response.data);
         }
@@ -194,7 +193,7 @@ export default function UsersTable() {
     if (type === "new") {
       const toastId = toast.loading("Submitting..");
       try {
-        const response = await axios.post<User>(`${baseUrl}/`, values);
+        const response = await usersApi.post<User>(`/`, values);
         setUsers((prevState) => [...prevState, response.data]);
         toast.success(`New user with name ${response.data.fullName} added`, {
           id: toastId,
@@ -211,7 +210,7 @@ export default function UsersTable() {
           // if the id to patch is not present, throw an error
           throw Error();
         }
-        const response = await axios.put<User>(`${baseUrl}/${id}`, values);
+        const response = await usersApi.put<User>(`${id}`, values);
         setUsers((prevState) =>
           prevState.map((item) => {
             if (item.id === id) {
@@ -237,7 +236,7 @@ export default function UsersTable() {
   async function handleDelete(id: string) {
     const toastId = toast.loading("Deleting user..");
     try {
-      const response = await axios.delete(`${baseUrl}/${id}`);
+      const response = await usersApi.delete(`/${id}`);
       setUsers((prevState) => {
         return prevState.filter((user) => user.id !== id);
       });
@@ -375,11 +374,16 @@ export default function UsersTable() {
             ))}
           </TableHeader>
           {tableLoading ? (
-            <tbody>
-              <tr>
-                <td colSpan={columns.length}>Loading..</td>
-              </tr>
-            </tbody>
+            <TableBody>
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  Loading users...
+                </TableCell>
+              </TableRow>
+            </TableBody>
           ) : users.length > 0 ? (
             <TableBody className="[&_tr:last-child]:border-b">
               {table.getRowModel().rows?.length ? (
@@ -431,11 +435,16 @@ export default function UsersTable() {
               )}
             </TableBody>
           ) : (
-            <tbody>
-              <tr>
-                <td colSpan={columns.length}>No data..</td>
-              </tr>
-            </tbody>
+            <TableBody>
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No data.
+                </TableCell>
+              </TableRow>
+            </TableBody>
           )}
         </Table>
         {/* END TABLE */}

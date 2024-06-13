@@ -8,7 +8,20 @@ export const userFormSchema = z.object({
     .string({ required_error: "User full name is required" })
     .min(4, "Please enter at least 4 characters")
     .max(50, "Full name must not exceed 50 characters"),
-  role: z.enum(["", "Administrator", "Sales Manager", "Sales Representative"]),
+  role: z
+    .enum(["", "Administrator", "Sales Manager", "Sales Representative"])
+    .refine(
+      (value) => {
+        if (value === "") {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      {
+        message: "Please select a role",
+      }
+    ),
   password: z
     .string({ required_error: "Please create a password" })
     .min(6, "Password must be at least 6 characters"),
